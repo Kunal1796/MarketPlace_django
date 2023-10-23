@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+
+{% block title %}Log In{% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-sm-12 p-2">
+        <div class="box rounded-lg form-group" style="height:100%;width:50%;margin:0 auto; background:#bae0c3">
+
+            <h2 class="ml-3 pt-4">Log In</h2> <hr>
+            <!-- Input group -->
+            <form method="post" action="." class="p-3">
+                {% csrf_token %}
+        
+                <div class="mb-3">
+                    <label for="uname" class="inline-block mb-2">Username</label><br>
+                    {{ form.username }}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="pw" class="inline-block mb-2">Password</label><br>
+                    {{ form.password }}
+                </div>
+        
+        
+                {% if form.errors or form.non_field_errors %}
+                    <div class="mb-3 p-6 bg-danger rounded-lg">
+                        {% for field in form %}
+                            {{ field.errors }}
+                        {% endfor %}
+        
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+        
+                <button class="btn btn-success rounded-lg">Submit</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+
+{% block title %}Inbox{% endblock title %}
+
+{% block content %}
+    <h1 class="text-center m-2">Inbox </h1>
+    <div class="bg-light rounded m-2 p-2 " >
+        {% for conversation in conversations  %}
+            <a href="{% url "conversation:detail" conversation.id %}" class="text-dark" style="text-decoration:none">
+                <div class="media">
+                    {% comment %} <div class="col-sm-6 flex p-2 rounded text-center"> {% endcomment %}
+                        <img src="{{conversation.item.image.url}}" class="align-self-start mr-3 rounded" alt="" style="width:5%;">
+                    {% comment %} </div> {% endcomment %}
+                    <div class="media-body">
+                        {% for member in conversation.members.all %}
+                            {% if member != request.user %}
+                                <p class=""><strong>{{member.username}} </strong> | {{conversation.modified_at}}</p>
+                                <p> {{conversation.item.name}} </p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock content%}

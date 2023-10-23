@@ -1,0 +1,52 @@
+{% extends "core/base.html" %}
+
+{% block title %}Inventory{% endblock title %}
+
+{% block content %}
+
+        <h2 class="text-center m-2 ">Inventory</h2>
+
+        <div class="row m-2">
+
+            <div class="col-sm-3 bg-light p-2 rounded" >
+                <form class="form-group " method="get" action="{% url "item:items" %}">
+                    <input name="query" class="form-control w-100 p-6 rounded-lg border" type="text" value="{{query}}" placeholder="Find a bike, chair or car">
+                    <button class="btn btn-sm mt-1 btn-outline-success rounded">Search</button>
+                </form>
+                <hr>
+
+                <p class="text-dark text-center">Categories</p>
+
+                    <ul class="list-group">
+                        {% for category in categories %}
+                            <a href="{% url "item:items" %}?query={{query}}&category={{category.id}} " class="rounded list-group-item list-group-item-action {% if category.id == category_id %}list-group-item-secondary{% endif %}">{{category.name}}</a>
+                        {% endfor %}
+                    </ul>
+
+                    <hr>
+
+                    <a href="{%url "item:items"%}" class="btn btn-sm rounded btn-outline-warning">Clear filters</a>
+            </div>
+
+            <div class="col-sm-9">
+                <div class="row rounded-lg p-2" style="background:#e5edf5 ">
+                    {% for item in items %} 
+                    <div class="col-sm-4 p-2">
+                        <div class="card h-100 w-100 p-1 d-flex " >
+                            <a href="{%url "item:detail" item.id %}" class="h-50">
+                            <img src="{{item.image.url}}" class="card-img h-100 p-2 rounded "   alt="{{item.name}}"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.name}}</h5>
+                                <p class="card-text ">{{item.description}}</p>
+                                <p class="card-text">Price: <span>&#8377;</span>{{item.price}}/- </p>
+                                <a href="{%url "item:detail" item.id %}" class="btn btn-primary">Buy</a>
+                            </div>
+                        </div>
+                    </div>       
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+
+{% block title %}Welcome{% endblock title %}
+
+{% block content %}
+        <!-- Gallery -->
+        <h2 class="text-center m-2">Latest</h2>
+        <div class="row  rounded p-2" style="background:#e5edf5 ">
+            {% for item in items %} 
+            <div class="col-sm-4 p-2">
+                <div class="card h-100 w-100 p-1 d-flex " >
+                    <a href="{%url "item:detail" item.id %}" class="h-50 ">
+                    <img src="{{item.image.url}}" class="card-img h-100 p-2 "   alt="{{item.name}}"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text ">{{item.description}}</p>
+                        <p class="card-text">Price: <span>&#8377;</span>{{item.price}}/- </p>
+                        <a href="{%url "item:detail" item.id %}" class="btn btn-primary">Buy</a>
+                    </div>
+                </div>
+            </div>       
+            {% endfor %}
+        </div>
+    <!-- Gallery -->
+    
+    <h2 class="text-center m-2">Categoies</h2>
+    <div class="row  rounded mb-2 p-2" style="background:#e5edf5 ">
+        {% for category in categories %}        
+        <div class="col-sm-4 p-2">
+            <div class="card h-100 w-100 p-1 d-flex" >
+                <div class="card-body">
+                    <h5 class="card-title">{{category.name}}</h5>
+                    <p class="card-text">{{category.items.count}} items</p>
+                </div>
+            </div>
+        </div>       
+        {% endfor %}
+
+    </div>
+{% endblock content %}

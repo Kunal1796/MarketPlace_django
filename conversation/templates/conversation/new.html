@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+
+{% block Title %}New Conversation{% endblock Title %}
+
+{% block content %}
+<h1 class="text-center m-2">New Conversation </h1>
+<div class="row p-3 mt-2 rounded bg-light" >
+    <div class="col-sm-6 rounded text-center">
+        <img class=" rounded w-50  mr-3" src="{{item.image.url}}" alt="">
+        <p>{{item.name}} : <span>&#8377;</span>{{item.price}}/-</p>
+    </div>
+    <div class="col-sm-6 rounded border p-3 " style="background:#e5edf5 ">
+        <form class="" method="post" action="." >
+            {% csrf_token %}
+        
+            <div class="my-3">
+                {{form.as_p}}
+            </div>
+        
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-2 p-6 bg-danger rounded-lg">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+        
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+        
+            <button class=" btn btn-outline-primary rounded-lg mb-3">Send <i class=" fa-solid fa-paper-plane fa-xl" style="color: #6ab3d2;" type="button"></i></button>
+        </form>
+
+    </div>
+</div>
+{% endblock content %}
+
